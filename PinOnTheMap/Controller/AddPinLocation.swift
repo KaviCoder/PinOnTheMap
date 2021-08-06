@@ -27,8 +27,8 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
                                         print(data)
 //                                        PinClient.PostPin.firstName = data.first_name
 //                                        PinClient.PostPin.lastName = data.last_name
-                                        PinClient.PostPin.firstName = "Kavya"
-                                        PinClient.PostPin.lastName = "Joshi"
+                                        PinClient.PostPin.firstName = "k"
+                                        PinClient.PostPin.lastName = "J"
                                         
                                     }
                                 }
@@ -75,7 +75,8 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
                 PinClient.PostPin.latitude = coordinate.latitude
                 PinClient.PostPin.longitude = coordinate.longitude
                 PinClient.PostPin.mapString = myText
-                PinClient.PostPin.uniqueKey = "9876"
+                PinClient.PostPin.uniqueKey = String(1234566666 + (arc4random() % 100))
+                
                 
             }}}
             

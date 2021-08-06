@@ -13,8 +13,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
     
- 
-   
+ //Unwind Segues for logOut button present in some View controller
+//    @IBAction func logOut(_ segue: UIStoryboardSegue) {
+//        print("unwindSeque")
+//      }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -44,18 +46,16 @@ class LoginViewController: UIViewController {
                 case .success(let res):
                     print(res.session.id)
                  print("Success")
-                    //call of data in maps
                     PinClient.getLocationData { result in
                         switch result{
                         case .success(let res):
                             print(res)
-                           
-                            
                             DispatchQueue.main.async {
                                 PinClient.mapData = res.results
+                                HandleLogin.setDefaultMainWindowSetting(id: HandleLogin.StoryBoardName.loggedIn.rawValue)
+                                    self.performSegue(withIdentifier: "toMaps", sender: self)
                                 
                                
-                                self.performSegue(withIdentifier: "toMaps", sender: self)
                             }
 
                         case .failure(let error):
@@ -64,6 +64,10 @@ class LoginViewController: UIViewController {
 
                         }
                     }
+                            
+                           
+
+                        
                 }
               
             }
@@ -77,5 +81,10 @@ class LoginViewController: UIViewController {
     @IBAction func facebookLogin(_ sender: UIButton) {
     }
     
+    
+    
+    
+    
+   
 }
 

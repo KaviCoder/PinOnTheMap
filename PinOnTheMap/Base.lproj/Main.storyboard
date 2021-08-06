@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="gNg-zJ-kzZ" customClass="MapViewController" customModule="PinOnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ivE-H1-BbM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IhT-qQ-ibv">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="703"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7Gd-oU-ssZ"/>
@@ -35,6 +35,11 @@
                                 <action selector="addPin:" destination="gNg-zJ-kzZ" id="oXt-dW-tsA"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="arrow.counterclockwise" catalog="system" id="6sY-tT-AC6">
+                            <connections>
+                                <action selector="logOutPresses:" destination="gNg-zJ-kzZ" id="DUQ-Gn-XHU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -49,7 +54,7 @@
         <!--Login View Controller-->
         <scene sceneID="OC1-i0-HQ2">
             <objects>
-                <viewController id="WmY-AV-90j" customClass="LoginViewController" customModule="PinOnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="WmY-AV-90j" customClass="LoginViewController" customModule="PinOnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LNJ-Y3-NRc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -138,7 +143,7 @@
                         <outlet property="logoImage" destination="I05-1V-4Xb" id="kas-qm-iHh"/>
                         <outlet property="password" destination="3IC-9R-RIH" id="CZD-2y-2dk"/>
                         <outlet property="userName" destination="e8T-gw-ejy" id="xcd-HS-wtw"/>
-                        <segue destination="alB-jr-fnc" kind="presentation" identifier="toMaps" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="96m-rh-J3O"/>
+                        <segue destination="alB-jr-fnc" kind="show" identifier="toMaps" id="96m-rh-J3O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="poB-ma-LxP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -148,7 +153,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="pnx-Ii-g8V">
             <objects>
-                <tabBarController id="alB-jr-fnc" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="alB-jr-fnc" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="zO3-ry-rUG"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="3gs-Lb-bAl">
@@ -172,7 +177,7 @@
                     <tabBarItem key="tabBarItem" title="" image="mappin" catalog="system" selectedImage="mappin" id="gDw-PZ-2mK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zBU-MZ-fC2">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -191,7 +196,7 @@
                     <tabBarItem key="tabBarItem" title="" image="list.dash" catalog="system" selectedImage="list.dash" id="Sj5-rF-yoC"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ucj-ei-5X2">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -208,7 +213,7 @@
             <objects>
                 <tableViewController id="eFy-xp-GO4" customClass="ListViewController" customModule="PinOnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7s0-Eh-01H">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -232,6 +237,11 @@
                                 <action selector="addPin:" destination="eFy-xp-GO4" id="wlN-XS-VH3"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="arrow.counterclockwise" catalog="system" id="Ppr-hf-rdy">
+                            <connections>
+                                <action selector="logOutPressed:" destination="eFy-xp-GO4" id="teT-Mf-hcH"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -247,11 +257,11 @@
             <objects>
                 <viewController id="Icd-FL-DR4" customClass="AddPinLocation" customModule="PinOnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2rp-Ye-7MM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="56" translatesAutoresizingMaskIntoConstraints="NO" id="QXC-hL-fCd">
-                                <rect key="frame" x="0.0" y="98" width="414" height="374.5"/>
+                                <rect key="frame" x="0.0" y="66" width="414" height="374.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iqg-5i-LTn">
                                         <rect key="frame" x="120.5" y="0.0" width="173.5" height="33.5"/>
@@ -287,7 +297,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6KT-l3-Fmf">
-                                <rect key="frame" x="0.0" y="664" width="404" height="49"/>
+                                <rect key="frame" x="0.0" y="610" width="404" height="49"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                 <size key="titleShadowOffset" width="12" height="10"/>
@@ -323,11 +333,11 @@
             <objects>
                 <viewController id="VHN-Zw-drd" customClass="AddPinLink" customModule="PinOnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2tw-17-bf4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="2TQ-j5-qcH">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="703"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste the link here." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pqy-wR-qvp">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
@@ -345,7 +355,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3ni-Oo-fHi">
-                                        <rect key="frame" x="0.0" y="230" width="414" height="495"/>
+                                        <rect key="frame" x="0.0" y="230" width="414" height="473"/>
                                     </mapView>
                                 </subviews>
                                 <constraints>
@@ -354,7 +364,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRc-1k-ySy">
-                                <rect key="frame" x="0.0" y="717" width="414" height="46"/>
+                                <rect key="frame" x="0.0" y="663" width="414" height="46"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <state key="normal" title="Submit"/>
@@ -387,9 +397,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="P7i-lR-oEn"/>
+        <segue reference="K9L-Oa-3zz"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="arrow.counterclockwise" catalog="system" width="115" height="128"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="mappin" catalog="system" width="105" height="128"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>

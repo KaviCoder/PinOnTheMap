@@ -9,6 +9,18 @@ import UIKit
 
 class ListViewController: UITableViewController {
     
+    
+ 
+    
+    @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
+        print("********")
+        PinClient.myDeleteRequest(id: HandleLogin.StoryBoardName.loggedOut.rawValue)
+        
+        
+        
+    }
+    
+   
     @IBAction func addPin(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "createPin", sender: self)
     }

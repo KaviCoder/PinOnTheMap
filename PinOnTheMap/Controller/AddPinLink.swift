@@ -46,7 +46,25 @@ class AddPinLink: UIViewController, UITextFieldDelegate,MKMapViewDelegate {
              {
              case.success(let data):
                 print(data)
-                self.navigationController?.popToRootViewController(animated: true)
+                
+                PinClient.getLocationData(url : PinClient.EndPoints.getLatestRecord.url) { result in
+                    switch result{
+                    case .success(let res):
+                        print(res)
+                        DispatchQueue.main.async {
+                            PinClient.mapData.append(contentsOf: res.results)
+                            self.navigationController?.popToRootViewController(animated: true)
+                           
+                        }
+
+                    case .failure(let error):
+                        print(error)
+
+
+                    }
+                }
+                    
+               
                 
              case .failure(let error):
                 print(error)

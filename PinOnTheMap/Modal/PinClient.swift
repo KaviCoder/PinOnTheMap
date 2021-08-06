@@ -21,6 +21,19 @@ class PinClient
         }
     }
     
+    static func myDeleteRequest(id : String)
+    {
+        PinClient.deleteRequest(url: PinClient.EndPoints.deleteSession.url) { results in
+            switch results{
+            case .success(let data):
+                print("******\(data)")
+                HandleLogin.setDefaultMainWindowSetting(id: id,userName: "loggedOut" )
+            case .failure(let error):
+                print("error in logout")
+                print(error)
+            }
+        }}
+    
     struct PostPin
      {
         static var uniqueKey : String = ""
@@ -34,19 +47,25 @@ class PinClient
     
     struct Auth {
        static var userID : String = ""
+      
     }
     
+    
+    
+ 
     enum EndPoints{
         
         case postsession
         case getLocation
+        case getLatestRecord
         case deleteSession
         case getUserData
         case postUserData
         
         var stringValue:String {
             switch self {
-            case .getLocation : return  "https://onthemap-api.udacity.com/v1/StudentLocation?firstName=Kavya"
+            case .getLocation : return  "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt&limit=10"
+            case .getLatestRecord : return  "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt&limit=1"
             case .postsession: return "https://onthemap-api.udacity.com/v1/session"
             case .deleteSession : return "https://onthemap-api.udacity.com/v1/session"
             case .getUserData : return "https://onthemap-api.udacity.com/v1/users/" + "\(Auth.userID)"
@@ -104,8 +123,8 @@ class PinClient
         }
     }
     
-    class func getLocationData(completion :  @escaping (Result<ParseResponse,Error>)->Void){
-        PinClient.getRequest(url: EndPoints.getLocation.url, responseType: ParseResponse.self) { results in
+    class func getLocationData(url: URL = EndPoints.getLocation.url,completion :  @escaping (Result<ParseResponse,Error>)->Void){
+        PinClient.getRequest(url: url, responseType: ParseResponse.self) { results in
             
             switch results{
             case .success(let res):
@@ -194,20 +213,23 @@ class PinClient
         }
     }
     
-    class func DeleteRequest(completion: @escaping ((Result<Data,Error>)-> Void))
-    {
-        deleteRequest(url: PinClient.EndPoints.deleteSession.url) { results in
-            switch results{
-            case .success(let data):
-                print("Logout completed")
-                completion(.success(data))
-                
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
+//    class func DeleteRequest(completion: @escaping ((Result<Data,Error>)-> Void))
+//    {
+//        deleteRequest(url: PinClient.EndPoints.deleteSession.url) { results in
+//            switch results{
+//            case .success(let data):
+//                print("Logout completed")
+//                
+//                DispatchQueue.main.async{
+//                completion(.success(data))
+//                }
+//            case .failure(let error):
+//                DispatchQueue.main.async{
+//                completion(.failure(error))
+//                }}
+//        }
+//    }
+//    
     //Prime Methods Definitions
     
     class func getRequest<T : Decodable>(url : URL, responseType : T.Type = Data.self as! T.Type, completion: @escaping (Result<T, Error>)-> Void)
@@ -229,8 +251,9 @@ class PinClient
             
             do {
                 let myResults  : T = try decorder.decode(T.self, from: data!)
-                return completion(.success(myResults))
-                
+                DispatchQueue.main.async {
+               completion(.success(myResults))
+                }
             }
             catch{
                 //if not decoded successfully
@@ -337,13 +360,19 @@ class PinClient
         }
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error…
+            if error != nil {
+                DispatchQueue.main.async {
+                  
+                completion(.failure(error!))// Handle error…
+                }
                 return
             }
             let range = (5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
             print(String(data: newData!, encoding: .utf8)!)
-        }
+            DispatchQueue.main.async {
+            completion(.success(newData!))
+            }}
         task.resume()
     }
     
