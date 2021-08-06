@@ -8,7 +8,11 @@
 import UIKit
 
 class ListViewController: UITableViewController {
-
+    
+    @IBAction func addPin(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "createPin", sender: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,15 +32,17 @@ class ListViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return PinClient.mapData.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListView", for: indexPath)
-        cell.textLabel?.text = "Hi I am Kavya"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCells", for: indexPath)
+        
+            cell.textLabel?.text =  PinClient.mapData[indexPath.row].firstName + PinClient.mapData[indexPath.row].lastName
+            cell.imageView?.image = UIImage.init(systemName: "mappin")
         // Configure the cell...
-
+        
         return cell
     }
     

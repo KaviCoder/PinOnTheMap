@@ -10,14 +10,19 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
+    @IBAction func addPin(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "createPin", sender: self)
+    }
     @IBOutlet weak var mapView: MKMapView!
+    // The "locations" array is an array of dictionary objects that are similar to the JSON
+    // data that you can download from parse.
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        // The "locations" array is an array of dictionary objects that are similar to the JSON
-        // data that you can download from parse.
-        let locations = hardCodedLocationData()
-        
+       
+
+       
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
         var annotations = [MKPointAnnotation]()
@@ -26,19 +31,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // to create map annotations. This would be more stylish if the dictionaries were being
         // used to create custom structs. Perhaps StudentLocation structs.
         
-        for dictionary in locations {
-            
+       
+        
+        
+        for dictionary in PinClient.mapData {
+           
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.
-            let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-            let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+            let lat = CLLocationDegrees(dictionary.latitude )
+            let long = CLLocationDegrees(dictionary.latitude)
             
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             
-            let first = dictionary["firstName"] as! String
-            let last = dictionary["lastName"] as! String
-            let mediaURL = dictionary["mediaURL"] as! String
+            
+            let first = dictionary.firstName
+            let last = dictionary.lastName
+            let mediaURL = dictionary.mediaURL
             
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             let annotation = MKPointAnnotation()
@@ -53,7 +62,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // When the array is complete, we add the annotations to the map.
         self.mapView.addAnnotations(annotations)
     }
-      
+    
     // MARK: - MKMapViewDelegate
 
     // Here we create a view with a "right callout accessory view". You might choose to look into other
@@ -89,16 +98,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+ 
     /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
+        // Get the new view controller using segue.destination.f
         // Pass the selected object to the new view controller.
     }
     */
     
+  
     
 
 
@@ -156,4 +168,18 @@ func hardCodedLocationData() -> [[String : Any]] {
         ]
     ]
 }
+}
+
+//Centr Map to Location
+private extension MKMapView {
+  func centerToLocation(
+    _ location: CLLocation,
+    regionRadius: CLLocationDistance = 1000
+  ) {
+    let coordinateRegion = MKCoordinateRegion(
+      center: location.coordinate,
+      latitudinalMeters: regionRadius,
+      longitudinalMeters: regionRadius)
+    setRegion(coordinateRegion, animated: true)
+  }
 }

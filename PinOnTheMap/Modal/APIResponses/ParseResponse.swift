@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ParseResponse : Decodable
+struct ParseResponse: Decodable
 {
     let results : [ParseResult]
 
@@ -25,3 +25,5 @@ struct ParseResult : Decodable
     let latitude : Float
     let longitude : Float
 }
+
+

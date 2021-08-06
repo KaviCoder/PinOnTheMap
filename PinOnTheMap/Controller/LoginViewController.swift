@@ -12,12 +12,18 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
+    
+ 
    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         Logger.viewCycle.info("View did load!")
+        
+        
     }
+    
+   
 
     @IBAction func loginPressed(_ sender: UIButton) {
         
@@ -28,6 +34,13 @@ class LoginViewController: UIViewController {
         
             PinClient.sessionRequest(body:sessReq.self) { results in
                 switch results{
+                
+                case .failure(let error):
+                    print(error)
+                    return
+                    
+                    
+                
                 case .success(let res):
                     print(res.session.id)
                  print("Success")
@@ -36,8 +49,12 @@ class LoginViewController: UIViewController {
                         switch result{
                         case .success(let res):
                             print(res)
+                           
                             
                             DispatchQueue.main.async {
+                                PinClient.mapData = res.results
+                                
+                               
                                 self.performSegue(withIdentifier: "toMaps", sender: self)
                             }
 
@@ -47,12 +64,8 @@ class LoginViewController: UIViewController {
 
                         }
                     }
-                   
-                case .failure(let error):
-                    print(error)
-                    
-                    
                 }
+              
             }
  
            
@@ -66,10 +79,3 @@ class LoginViewController: UIViewController {
     
 }
 
-extension Logger {
-    private static var subsystem = Bundle.main.bundleIdentifier!
-
-    /// Logs the view cycles like viewDidLoad.
-    static let viewCycle = Logger(subsystem: subsystem, category: "viewcycle")
-    static let networkCall = Logger(subsystem: subsystem , category: "StringNetworkCalls")
-}
