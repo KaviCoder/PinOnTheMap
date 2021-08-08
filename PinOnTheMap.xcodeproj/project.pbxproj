@@ -30,6 +30,7 @@
 		55E80F0126B6F63300574323 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E80F0026B6F63300574323 /* ParseResponse.swift */; };
 		55E80F0326B7A49B00574323 /* SessionReq.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E80F0226B7A49B00574323 /* SessionReq.swift */; };
 		55E80F0526B7B76C00574323 /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E80F0426B7B76C00574323 /* SessionResponse.swift */; };
+		55FB059426C01AEF00F5E260 /* NavigationItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FB059326C01AEF00F5E260 /* NavigationItems.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		55E80F0026B6F63300574323 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
 		55E80F0226B7A49B00574323 /* SessionReq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionReq.swift; sourceTree = "<group>"; };
 		55E80F0426B7B76C00574323 /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
+		55FB059326C01AEF00F5E260 /* NavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItems.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				559423FA26BE46E8004C29A4 /* ButtonDesign.swift */,
 				559423FC26BEE95B004C29A4 /* KBUIViewController.swift */,
 				559423FE26BF7A2D004C29A4 /* AlertsToTheError.swift */,
+				55FB059326C01AEF00F5E260 /* NavigationItems.swift */,
 				559423F426BBA5BA004C29A4 /* APIResponses */,
 				559423F526BBA5E7004C29A4 /* APIRequests */,
 			);
@@ -352,6 +355,7 @@
 				55E80F0526B7B76C00574323 /* SessionResponse.swift in Sources */,
 				55E80EFC26B39CEB00574323 /* MapViewController.swift in Sources */,
 				55E80EFA26B39C9C00574323 /* ListViewController.swift in Sources */,
+				55FB059426C01AEF00F5E260 /* NavigationItems.swift in Sources */,
 				55E80F0326B7A49B00574323 /* SessionReq.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

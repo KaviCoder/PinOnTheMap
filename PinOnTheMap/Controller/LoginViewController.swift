@@ -59,9 +59,11 @@ class LoginViewController: KBUIViewController, UITextFieldDelegate {
                             print(res)
                             DispatchQueue.main.async {
                                 PinClient.mapData = res.results
-                                HandleLogin.setDefaultMainWindowSetting(id: HandleLogin.StoryBoardName.loggedIn.rawValue)
-                                self.updateUI(enable: false)
-                                    self.performSegue(withIdentifier: "toMaps", sender: self)
+                                HandleLogin.setDefaultMainWindowSetting(id: HandleLogin.StoryBoardName.loggedIn.rawValue){_ in
+                                    self.updateUI(enable: false)
+                                }
+                               
+                                   // self.performSegue(withIdentifier: "toMaps", sender: self)
                                 
                                
                             }

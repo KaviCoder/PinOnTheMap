@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        
             let mainTabBar = storyboard.instantiateViewController(identifier: "TabBarController")
             window?.rootViewController = mainTabBar
-           PinClient.Auth.userID = UserDefaults.standard.string(forKey: "AuthID")!
+//           PinClient.Auth.userID = UserDefaults.standard.string(forKey: "AuthID")!
             print("Already loggedIn")
         }
         else{

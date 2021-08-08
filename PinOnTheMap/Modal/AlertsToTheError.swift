@@ -16,6 +16,7 @@ import UIKit
     {
         case NilValue
         case IncorrectLocation
+        case LinkNotEntered
         
         var errorDescription: String{
         switch (self) {
@@ -23,6 +24,10 @@ import UIKit
             return "Please Enter the text"
         case .IncorrectLocation:
             return "Couldn't locate this place. You can try nearby places"
+            
+        case .LinkNotEntered:
+            return "Please enter the media link"
+            
         }
         }
     }

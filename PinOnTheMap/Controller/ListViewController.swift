@@ -8,31 +8,14 @@
 import UIKit
 
 class ListViewController: UITableViewController {
-    
-    
- 
-    
-    @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
-        print("********")
-        PinClient.myDeleteRequest(id: HandleLogin.StoryBoardName.loggedOut.rawValue)
-        
-        
-        
-    }
-    
-   
-    @IBAction func addPin(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "createPin", sender: self)
-    }
+    var pinButton : UIBarButtonItem!
+   var logOutButton : UIBarButtonItem!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addNavigationButtons()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -68,7 +51,40 @@ class ListViewController: UITableViewController {
          
             app.open(URL(string: PinClient.mapData[PinClient.mapData.count - indexPath.row].mediaURL)!, options: [:])
     
+        
+        
+        
+        
+        
     }
+   
+    //MARK:- Navigation Items
+    func  addNavigationButtons()
+    {
+      
+        pinButton = UIBarButtonItem(image: UIImage(named: "icon_pin"), style: .done, target: self, action: #selector(pinPressed(_:)))
+    
+        self.navigationItem.rightBarButtonItem = self.pinButton
+        
+        logOutButton = UIBarButtonItem( image : UIImage(named: "logout"), style: .done, target: self, action: #selector(logOutPressed(_:)))
+        self.navigationItem.leftBarButtonItem = self.logOutButton
+    }
+    
+   @objc func pinPressed(_ sender: UIBarButtonItem)  {
+       
+        performSegue(withIdentifier: "createPin", sender: self)
+    }
+
+   
+    @objc func logOutPressed(_ sender: UIBarButtonItem) {
+     
+        PinClient.myDeleteRequest(id: HandleLogin.StoryBoardName.loggedOut.rawValue)
+      
+    }
+    
+}
+    
+   
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -114,4 +130,4 @@ class ListViewController: UITableViewController {
     }
     */
 
-}
+

@@ -11,24 +11,30 @@ import os
 
 class AddPinLocation: UIViewController ,UITextFieldDelegate {
 
+    @IBAction func cancel(_ sender: UIButton) {
+    
+        self.view.window?.rootViewController!.dismiss(animated: true)
+        
+    }
+    @IBOutlet weak var waitIndicator: UIActivityIndicatorView!
     @IBOutlet weak var addToTheMap: UIButton!
     @IBOutlet weak var locationText: UITextField!
     var coordinates   : CLLocationCoordinate2D?
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        waitIndicator.isHidden = true
         locationText.delegate = self
         
         
        // call for userData is cmmented because the API is not giving correct result
-        /*
+        
                                 PinClient.getUserData { results in
                                     switch results{
-                                   
-                                        
                                     case .success(let data):
                                         print("Already in success for User Data")
                                         print(data)
+                                        PinClient.PostPin.firstName = data.first_name
+                                        PinClient.PostPin.lastName = data.last_name
                                     
                                         return
                                         
@@ -41,8 +47,6 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
                                         
                                     }
                                 }
- */
-        
     }
     
     
@@ -52,11 +56,13 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let myText = textField.text
-        print(myText)
+        print(myText as Any)
         textField.resignFirstResponder()
         if myText != "" {
-            
-            getCoordinate(addressString: myText!) { coordinate, error in
+            uiChanges(enable: true)
+            getCoordinate(addressString: myText!) { [self] coordinate, error in
+                
+                self.uiChanges(enable: false)
                 guard error == nil else {
                     print(error as Any)
                     textField.placeholder = "Please enter nearby places"
@@ -66,7 +72,7 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
                     }
                     return
                 }
-                
+              
                 print(coordinate)
                 //enable button
                 self.coordinates = coordinate
@@ -77,7 +83,7 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
                 PinClient.PostPin.firstName = "KJ"
                 PinClient.PostPin.lastName = "Jakson"
               
-                self.uiChanges(enable: true)
+              
                 
                 
             }}
@@ -135,8 +141,11 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
 
     func uiChanges(enable: Bool)
     {
-        
-            addToTheMap.isEnabled = enable
+        //if true...
+        //disable the button-
+        //wait indicator is not hidden...visible
+            addToTheMap.isEnabled = !enable
+        waitIndicator.isHidden = !enable
         
     }
    
@@ -150,5 +159,9 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
           
           self.present(myController, animated: true, completion: nil)
       }
+    
+    
+   
 }
+
 

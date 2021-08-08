@@ -17,7 +17,7 @@ struct HandleLogin {
         case loggedOut = "LoginViewController"
     }
     
-    static  func setDefaultMainWindowSetting(id :String, userName : String = "LoggedIn")
+    static  func setDefaultMainWindowSetting(id :String, userName : String = "LoggedIn", completed : @escaping (Bool) -> Void)
     { print(id)
         //if logged in
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -29,16 +29,18 @@ struct HandleLogin {
         
         if id == StoryBoardName.loggedIn.rawValue
         {
-            let auth = PinClient.Auth.userID
+           
             print("saved, login")
             defaults.set(true, forKey: "UserLoggedIn")
             defaults.set(PinClient.Auth.userID, forKey: "AuthID")
+            completed(true)
             
         }
         else
         {   print("removed, logout")
             defaults.set(false, forKey: "UserLoggedIn")
             defaults.set("", forKey: "AuthID")
+            completed(true)
             
         }
     

@@ -9,31 +9,24 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-    @IBAction func logOutPresses(_ sender: UIBarButtonItem) {
-        
-        print("********")
-        PinClient.myDeleteRequest(id : HandleLogin.StoryBoardName.loggedOut.rawValue)
-      
-        
-    }
-    
-    
-    
-    @IBAction func addPin(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "createPin", sender: self)
-    }
-    @IBOutlet weak var mapView: MKMapView!
  
+    @IBOutlet weak var mapView: MKMapView!
+
+   
+     var pinButton : UIBarButtonItem!
+    var logOutButton : UIBarButtonItem!
+
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addNavigationButtons()
         mapView.delegate = self
         self.fetchData(){ result in
             print(result)
             self.addAnnotation()
         }
-        
+      
         if UserDefaults.standard.bool(forKey: "UserLoggedIn"){
             
             print("I am loggedIn")}
@@ -141,6 +134,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.addAnnotations(annotations)
             
         }
+    //MARK:- Navigation Items
+    func  addNavigationButtons()
+    {
+      
+        pinButton = UIBarButtonItem(image: UIImage(named: "icon_pin"), style: .done, target: self, action: #selector(pinPressed(_:)))
+    
+        self.navigationItem.rightBarButtonItem = self.pinButton
+        
+        logOutButton = UIBarButtonItem( image : UIImage(named: "logout"), style: .done, target: self, action: #selector(logOutPressed(_:)))
+        self.navigationItem.leftBarButtonItem = self.logOutButton
+    }
+    
+   @objc func pinPressed(_ sender: UIBarButtonItem)  {
+       
+        performSegue(withIdentifier: "createPin", sender: self)
+    }
+
+   
+    @objc func logOutPressed(_ sender: UIBarButtonItem) {
+     
+        PinClient.myDeleteRequest(id : HandleLogin.StoryBoardName.loggedOut.rawValue)
+      
+    }
     
 }
 

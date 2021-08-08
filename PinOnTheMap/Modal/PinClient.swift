@@ -27,10 +27,11 @@ class PinClient
             switch results{
             case .success(let data):
                 print("******\(data)")
-                HandleLogin.setDefaultMainWindowSetting(id: id,userName: "loggedOut" )
+                HandleLogin.setDefaultMainWindowSetting(id: id,userName: "loggedOut"){_ in
+                    Logger.networkCall.info("logOut successfully")
+                }
             case .failure(let error):
-                print("error in logout")
-                print(error)
+             print(error)
             }
         }}
     
@@ -64,7 +65,7 @@ class PinClient
         
         var stringValue:String {
             switch self {
-            case .getLocation : return  "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt&limit=10"
+            case .getLocation : return  "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt&limit=100"
             case .getLatestRecord : return  "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt&limit=1"
             case .postsession: return "https://onthemap-api.udacity.com/v1/session"
             case .deleteSession : return "https://onthemap-api.udacity.com/v1/session"
@@ -211,8 +212,6 @@ class PinClient
             
             switch results{
             
-        
-                
             case .success(let res):
                 
                 print("success in \(#function)")
@@ -232,10 +231,10 @@ class PinClient
                     //if not decoded successfully
                     print(error.localizedDescription)
                     print(" not Decoded Successfully")
-                    completion(.failure(error))
+                   
                 }
-                
-              //  completion(.success(String(data: newData, encoding: .utf8)!))
+                return
+          
             
             case .failure(let error):
                 print(" no data Successfully")
@@ -276,10 +275,18 @@ class PinClient
             }
             
             if responseType == Data.self
-            {       DispatchQueue.main.async {
-                print(" returned successfully..data found in get data")
+            
+            {
+                print("Here is the data")
+                DispatchQueue.main.async {
+               
                 completion(.success(data as! T))
-            }}
+                            }
+                return
+
+            }
+            print("Outside")
+            
             let decorder = JSONDecoder()
             
             do {
