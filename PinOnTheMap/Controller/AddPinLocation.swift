@@ -11,27 +11,37 @@ import os
 
 class AddPinLocation: UIViewController ,UITextFieldDelegate {
 
+    @IBOutlet weak var addToTheMap: UIButton!
     @IBOutlet weak var locationText: UITextField!
+    var coordinates   : CLLocationCoordinate2D?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    
         locationText.delegate = self
-       // call for userData
+        
+        
+       // call for userData is cmmented because the API is not giving correct result
+        /*
                                 PinClient.getUserData { results in
                                     switch results{
-                                    case .failure(let error):
-                                        Logger.networkCall.error("Error occured while calling \(#function) from \(#file) with error : \(error.localizedDescription)")
+                                   
+                                        
                                     case .success(let data):
                                         print("Already in success for User Data")
                                         print(data)
-//                                        PinClient.PostPin.firstName = data.first_name
-//                                        PinClient.PostPin.lastName = data.last_name
-                                        PinClient.PostPin.firstName = "k"
-                                        PinClient.PostPin.lastName = "J"
+                                    
+                                        return
+                                        
+                                    case .failure(let error):
+                                      
+                                        DispatchQueue.main.async{
+                                            self.showAlert(message: error.localizedDescription)
+                                        }
+                                      
                                         
                                     }
                                 }
+ */
         
     }
     
@@ -45,41 +55,38 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
         print(myText)
         textField.resignFirstResponder()
         if myText != "" {
+            
             getCoordinate(addressString: myText!) { coordinate, error in
                 guard error == nil else {
                     print(error as Any)
                     textField.placeholder = "Please enter nearby places"
+                    
+                    DispatchQueue.main.async{
+                        self.showAlert(message: AlertsToTheError.ValidationError.IncorrectLocation.errorDescription)
+                    }
                     return
                 }
                 
                 print(coordinate)
+                //enable button
+                self.coordinates = coordinate
+                PinClient.PostPin.latitude = coordinate.latitude
+                PinClient.PostPin.longitude = coordinate.longitude
+                PinClient.PostPin.mapString = myText!
+                PinClient.PostPin.uniqueKey = String(1234566666 + (arc4random() % 100))
+                PinClient.PostPin.firstName = "KJ"
+                PinClient.PostPin.lastName = "Jakson"
+              
+                self.uiChanges(enable: true)
                 
                 
             }}
+        else{
+            textField.placeholder = "Please Enter the location"
+        }
        return  true
     }
     
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let myText = textField.text!
-            
-        if myText != ""{
-            getCoordinate(addressString: myText) { coordinate, error in
-                guard error == nil else {
-                    print(error as Any)
-                    textField.placeholder = "Please enter nearby places"
-                    return
-                }
-                
-                print(coordinate)
-                PinClient.PostPin.latitude = coordinate.latitude
-                PinClient.PostPin.longitude = coordinate.longitude
-                PinClient.PostPin.mapString = myText
-                PinClient.PostPin.uniqueKey = String(1234566666 + (arc4random() % 100))
-                
-                
-            }}}
-            
             
            
     
@@ -88,7 +95,14 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
         //check if correct place is added or not
         //convert the locations into lat/long
         //
+        
+        if coordinates != nil && locationText.text != "" {
         performSegue(withIdentifier: "toLink", sender: self)
+        }
+        else {
+            showAlert(message: AlertsToTheError.ValidationError.NilValue.errorDescription)
+            
+        }
     }
     
  
@@ -119,5 +133,22 @@ class AddPinLocation: UIViewController ,UITextFieldDelegate {
         }
     }
 
+    func uiChanges(enable: Bool)
+    {
+        
+            addToTheMap.isEnabled = enable
+        
+    }
+   
+    
+    func showAlert( message : String)
+      {
+          let myController = UIAlertController(title: "Please Enter Again", message: message, preferredStyle: .alert)
+          myController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+             
+          }))
+          
+          self.present(myController, animated: true, completion: nil)
+      }
 }
 

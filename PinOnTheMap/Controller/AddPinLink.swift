@@ -53,12 +53,17 @@ class AddPinLink: UIViewController, UITextFieldDelegate,MKMapViewDelegate {
                         print(res)
                         DispatchQueue.main.async {
                             PinClient.mapData.append(contentsOf: res.results)
-                            self.navigationController?.popToRootViewController(animated: true)
+                            
+//                            self.navigationController?.popToRootViewController(animated: true)
+                            self.view.window?.rootViewController!.dismiss(animated: true)
                            
                         }
 
                     case .failure(let error):
                         print(error)
+                        DispatchQueue.main.async {
+                            self.showAlert(message: error.localizedDescription)
+                        }
 
 
                     }
@@ -122,5 +127,14 @@ class AddPinLink: UIViewController, UITextFieldDelegate,MKMapViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    func showAlert( message : String)
+      {
+          let myController = UIAlertController(title: "Please Enter Again", message: message, preferredStyle: .alert)
+          myController.addAction(UIAlertAction(title: "OK", style: .default)
+              
+          )
+          
+          self.present(myController, animated: true, completion: nil)
+      }
 
 }

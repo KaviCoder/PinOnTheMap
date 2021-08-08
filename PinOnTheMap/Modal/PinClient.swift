@@ -97,6 +97,7 @@ class PinClient
 //                let range = (5..<res.count)
 //                let newData = res.subdata(in: range) /* subset response data! */
                 print(String(data: res, encoding: .utf8)!)
+                print(Auth.userID)
                 completion(.success(String(data: res, encoding: .utf8)!))
                 
                // let decorder = JSONDecoder()
@@ -145,33 +146,58 @@ class PinClient
         PinClient.postRequest(url: PinClient.EndPoints.postsession.url, RequestBodyType: body, responseType: SessionResponse.self) { results in
             
             switch results{
+            
+        case .failure(let error):
+            completion(.failure(error))
+            
+            
             case .success(let res):
                 
-                print("success in \(#function)")
+                print("success in \(#function)...got some response")
                 let range = (5..<res.count)
                 let newData = res.subdata(in: range) /* subset response data! */
                 print(String(data: newData, encoding: .utf8)!)
                 
+                
+                //first tring to decode the result in erroredResponse then actual response
+               
+                
                 let decorder = JSONDecoder()
-                
                 do {
-                    let myResults = try decorder.decode(SessionResponse.self, from: newData)
-                    PinClient.Auth.userID = myResults.session.id
-                    return completion(.success(myResults))
+                    let errorRes = try decorder.decode(ErrorResponse.self, from: newData)
+                    let myError = myError(errorDescription: errorRes.error)
+                    completion(.failure(myError))
                 
-                    
+                
                 }
                 catch{
-                    //if not decoded successfully
-                    print(error.localizedDescription)
-                    completion(.failure(error))
+                    //if we didn't got errr---Hurray!  We might got the data successfully
+                   
+                    do {
+                        let myResults = try decorder.decode(SessionResponse.self, from: newData)
+                        PinClient.Auth.userID = myResults.session.id
+                     completion(.success(myResults))
+                    
+                    
+                    }
+                    catch{
+                        //if not decoded successfully
+                        print("******")
+                        print(error.localizedDescription)
+                        completion(.failure(error))
+                       
+                    }
+                    
+                   
                 }
                 
                 
                 
                 
-            case .failure(let error):
-                completion(.failure(error))
+                
+                
+                
+                
                 
             }
         }
@@ -184,29 +210,35 @@ class PinClient
         PinClient.getRequest(url: PinClient.EndPoints.getUserData.url,responseType: Data.self) { results in
             
             switch results{
+            
+        
+                
             case .success(let res):
                 
                 print("success in \(#function)")
                 let range = (5..<res.count)
-                let newData = res.subdata(in: range) /* subset response data! */
-                
+                let newData = res.subdata(in: range)
+                /* subset response data! */
+                print(String(data: newData, encoding: .utf8)!)
                 let decorder = JSONDecoder()
                 
                 do {
                     let myResults = try decorder.decode(UserDataResponse.self, from: newData)
-            
+                    print("Decoded Successfully")
                     return completion(.success(myResults))
-                    
+                  
                 }
                 catch{
                     //if not decoded successfully
                     print(error.localizedDescription)
+                    print(" not Decoded Successfully")
                     completion(.failure(error))
                 }
                 
               //  completion(.success(String(data: newData, encoding: .utf8)!))
             
             case .failure(let error):
+                print(" no data Successfully")
                 completion(.failure(error))
                 
             }
@@ -245,6 +277,7 @@ class PinClient
             
             if responseType == Data.self
             {       DispatchQueue.main.async {
+                print(" returned successfully..data found in get data")
                 completion(.success(data as! T))
             }}
             let decorder = JSONDecoder()
@@ -385,4 +418,13 @@ extension Logger {
     static let viewCycle = Logger(subsystem: subsystem, category: "viewcycle")
     static let networkCall = Logger(subsystem: subsystem , category: "StringNetworkCalls")
     static let mapCount = Logger(subsystem: subsystem , category: "MapDataCount")
+}
+
+
+struct myError : LocalizedError
+{
+    
+    var errorDescription: String?
+    
+    
 }

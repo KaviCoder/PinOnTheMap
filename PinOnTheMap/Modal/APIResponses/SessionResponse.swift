@@ -25,6 +25,13 @@ struct AccountItems : Codable{
     let key : String
 }
 
+
+struct ErrorResponse:Decodable
+{
+    let status : Int
+    let error : String
+}
+
 /*
 {
     "account":{

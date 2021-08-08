@@ -13,6 +13,9 @@
 		559423F226BB9F93004C29A4 /* AddPinLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559423F126BB9F93004C29A4 /* AddPinLink.swift */; };
 		559423F726BC8EB1004C29A4 /* UserDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559423F626BC8EB0004C29A4 /* UserDataResponse.swift */; };
 		559423F926BD0195004C29A4 /* HandleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559423F826BD0194004C29A4 /* HandleLogin.swift */; };
+		559423FB26BE46E8004C29A4 /* ButtonDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559423FA26BE46E8004C29A4 /* ButtonDesign.swift */; };
+		559423FD26BEE95B004C29A4 /* KBUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559423FC26BEE95B004C29A4 /* KBUIViewController.swift */; };
+		559423FF26BF7A2D004C29A4 /* AlertsToTheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559423FE26BF7A2D004C29A4 /* AlertsToTheError.swift */; };
 		55E80ECA26B37DFB00574323 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E80EC926B37DFB00574323 /* AppDelegate.swift */; };
 		55E80ECC26B37DFB00574323 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E80ECB26B37DFB00574323 /* SceneDelegate.swift */; };
 		55E80ECE26B37DFB00574323 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E80ECD26B37DFB00574323 /* LoginViewController.swift */; };
@@ -53,6 +56,9 @@
 		559423F126BB9F93004C29A4 /* AddPinLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPinLink.swift; sourceTree = "<group>"; };
 		559423F626BC8EB0004C29A4 /* UserDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataResponse.swift; sourceTree = "<group>"; };
 		559423F826BD0194004C29A4 /* HandleLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleLogin.swift; sourceTree = "<group>"; };
+		559423FA26BE46E8004C29A4 /* ButtonDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDesign.swift; sourceTree = "<group>"; };
+		559423FC26BEE95B004C29A4 /* KBUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBUIViewController.swift; sourceTree = "<group>"; };
+		559423FE26BF7A2D004C29A4 /* AlertsToTheError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsToTheError.swift; sourceTree = "<group>"; };
 		55E80EC626B37DFB00574323 /* PinOnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinOnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E80EC926B37DFB00574323 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55E80ECB26B37DFB00574323 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +111,9 @@
 			children = (
 				55E80EFE26B3A16600574323 /* PinClient.swift */,
 				559423F826BD0194004C29A4 /* HandleLogin.swift */,
+				559423FA26BE46E8004C29A4 /* ButtonDesign.swift */,
+				559423FC26BEE95B004C29A4 /* KBUIViewController.swift */,
+				559423FE26BF7A2D004C29A4 /* AlertsToTheError.swift */,
 				559423F426BBA5BA004C29A4 /* APIResponses */,
 				559423F526BBA5E7004C29A4 /* APIRequests */,
 			);
@@ -329,7 +338,10 @@
 				55E80ECE26B37DFB00574323 /* LoginViewController.swift in Sources */,
 				55E80EFF26B3A16600574323 /* PinClient.swift in Sources */,
 				55E80ECA26B37DFB00574323 /* AppDelegate.swift in Sources */,
+				559423FB26BE46E8004C29A4 /* ButtonDesign.swift in Sources */,
+				559423FF26BF7A2D004C29A4 /* AlertsToTheError.swift in Sources */,
 				559423F726BC8EB1004C29A4 /* UserDataResponse.swift in Sources */,
+				559423FD26BEE95B004C29A4 /* KBUIViewController.swift in Sources */,
 				55E80F0126B6F63300574323 /* ParseResponse.swift in Sources */,
 				559423EC26BB39AB004C29A4 /* PostUserData.swift in Sources */,
 				559423EE26BB41E1004C29A4 /* PostDataUserResp.swift in Sources */,

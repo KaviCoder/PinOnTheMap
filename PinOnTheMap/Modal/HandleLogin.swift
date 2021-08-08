@@ -29,15 +29,22 @@ struct HandleLogin {
         
         if id == StoryBoardName.loggedIn.rawValue
         {
+            let auth = PinClient.Auth.userID
             print("saved, login")
-            defaults.set(userName, forKey: "UserName")
+            defaults.set(true, forKey: "UserLoggedIn")
+            defaults.set(PinClient.Auth.userID, forKey: "AuthID")
+            
         }
         else
         {   print("removed, logout")
-            defaults.set(nil, forKey: "UserName")
-            
+            defaults.set(false, forKey: "UserLoggedIn")
+            defaults.set("", forKey: "AuthID")
             
         }
     
 }
+    
+    
+    
+
 }

@@ -50,15 +50,25 @@ class ListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCells", for: indexPath)
+        print(PinClient.mapData.count)
+        print(indexPath.row)
+        print(PinClient.mapData.count - indexPath.row)
+        let recordToBeDisplayed = PinClient.mapData[PinClient.mapData.count - indexPath.row - 1]
         
-            cell.textLabel?.text =  PinClient.mapData[indexPath.row].firstName + PinClient.mapData[indexPath.row].lastName
-            cell.imageView?.image = UIImage.init(systemName: "mappin")
+        cell.textLabel?.text = recordToBeDisplayed.firstName + recordToBeDisplayed.lastName
+            cell.imageView?.image = UIImage(named: "icon_pin")
         // Configure the cell...
         
         return cell
     }
     
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let app = UIApplication.shared
+         
+            app.open(URL(string: PinClient.mapData[PinClient.mapData.count - indexPath.row].mediaURL)!, options: [:])
+    
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

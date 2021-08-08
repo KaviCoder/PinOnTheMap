@@ -20,21 +20,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        
+        print("Sene Delegate")
+      
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        if let loggedUsername = UserDefaults.standard.string(forKey: "userName"){
+        if UserDefaults.standard.bool(forKey: "UserLoggedIn") != false && (UserDefaults.standard.string(forKey: "AuthID") != "")
+        {
             
-            print("loggedUsername")
+       
             let mainTabBar = storyboard.instantiateViewController(identifier: "TabBarController")
             window?.rootViewController = mainTabBar
+           PinClient.Auth.userID = UserDefaults.standard.string(forKey: "AuthID")!
             print("Already loggedIn")
         }
         else{
             let loginNavController = storyboard.instantiateViewController(identifier: "LoginViewController")
             window?.rootViewController = loginNavController
         }
-    }
+        
+        
+       //Get the data on our array
+           
+            
+        }
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -43,10 +52,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
+    
+    
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.

@@ -9,9 +9,9 @@ import Foundation
 
 struct UserDataResponse : Decodable
 {
-    let last_name : String
-    let first_name: String
-    let _image_url : String
+//    let last_name : String
+//    let first_name: String
+    let _image_url : String?
     
     
 }
